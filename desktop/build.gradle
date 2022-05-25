@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'edu.sc.seis.launch4j' version '2.5.3'
+}
+
+launch4j {
+    mainClassName = 'gg.hye.arraratJava.desktop.app.Application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group 'gg.hye'
+version '1.0.0-SNAPSHOT'
+
+application {
+    mainClass = 'gg.hye.arraratJava.desktop.app.Application' 
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation project(':api')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it)}
+    }
+
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+}
